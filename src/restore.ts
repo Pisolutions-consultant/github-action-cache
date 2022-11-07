@@ -29,10 +29,16 @@ async function run(): Promise<void> {
             required: true
         });
 
+        const s3BucketName = core.getInput(Inputs.AWSS3Bucket);
+        const s3config = utils.getInputS3ClientConfig();
+
         const cacheKey = await cache.restoreCache(
             cachePaths,
             primaryKey,
-            restoreKeys
+            restoreKeys,
+            undefined,
+            s3config,
+            s3BucketName
         );
 
         if (!cacheKey) {

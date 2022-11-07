@@ -1,7 +1,8 @@
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
+import { S3ClientConfig } from "@aws-sdk/client-s3";
 
-import { Outputs, RefKey, State } from "../constants";
+import { Inputs, Outputs, RefKey, State } from "../constants";
 
 export function isGhes(): boolean {
     const ghUrl = new URL(
@@ -92,4 +93,26 @@ Otherwise please upgrade to GHES version >= 3.5 and If you are also using Github
     }
 
     return true;
+}
+
+export function getInputS3ClientConfig(): S3ClientConfig | undefined {
+    const s3BucketName = core.getInput(Inputs.AWSS3Bucket);
+    if (!s3BucketName) {
+        return undefined;
+    }
+
+    const s3config = {
+        credentials: {
+            accessKeyId: core.getInput(Inputs.AWSAccessKeyId),
+            secretAccessKey: core.getInput(Inputs.AWSSecretAccessKey)
+        },
+        region: core.getInput(Inputs.AWSRegion),
+        endpoint: core.getInput(Inputs.AWSEndpoint),
+        bucketEndpoint: core.getBooleanInput(Inputs.AWSS3BucketEndpoint),
+        forcePathStyle: core.getBooleanInput(Inputs.AWSS3ForcePathStyle)
+    } as S3ClientConfig;
+
+    core.debug("Enable S3 backend mode.");
+
+    return s3config;
 }

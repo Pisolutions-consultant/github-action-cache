@@ -44,9 +44,18 @@ async function run(): Promise<void> {
             required: true
         });
 
-        const cacheId = await cache.saveCache(cachePaths, primaryKey, {
-            uploadChunkSize: utils.getInputAsInt(Inputs.UploadChunkSize)
-        });
+        const s3BucketName = core.getInput(Inputs.AWSS3Bucket);
+        const s3config = utils.getInputS3ClientConfig();
+
+        const cacheId = await cache.saveCache(
+            cachePaths,
+            primaryKey,
+            {
+                uploadChunkSize: utils.getInputAsInt(Inputs.UploadChunkSize)
+            },
+            s3config,
+            s3BucketName
+        );
 
         if (cacheId != -1) {
             core.info(`Cache saved with key: ${primaryKey}`);
