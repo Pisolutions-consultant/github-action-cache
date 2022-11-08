@@ -8,7 +8,6 @@ export enum Inputs {
     AWSSecretAccessKey = "aws-secret-access-key",
     AWSRegion = "aws-region",
     AWSEndpoint = "aws-endpoint",
-    AWSS3BucketEndpoint = "aws-s3-bucket-endpoint",
     AWSS3ForcePathStyle = "aws-s3-force-path-style"
 }
 

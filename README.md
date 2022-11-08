@@ -23,7 +23,6 @@ Inspired by [whywaita/actions-cache-s3](https://github.com/whywaita/actions-cach
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     aws-region: us-east-1                      # Optional
     aws-endpoint: https://example.com          # Optional
-    aws-s3-bucket-endpoint: false              # Optional
     aws-s3-force-path-style: true              # Optional
 ```
 

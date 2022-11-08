@@ -107,8 +107,7 @@ export function getInputS3ClientConfig(): S3ClientConfig | undefined {
             secretAccessKey: core.getInput(Inputs.AWSSecretAccessKey)
         },
         region: core.getInput(Inputs.AWSRegion),
-        endpoint: core.getInput(Inputs.AWSEndpoint),
-        bucketEndpoint: core.getBooleanInput(Inputs.AWSS3BucketEndpoint),
+        endpoint: core.getInput(Inputs.AWSEndpoint) || undefined,
         forcePathStyle: core.getBooleanInput(Inputs.AWSS3ForcePathStyle)
     } as S3ClientConfig;
 
