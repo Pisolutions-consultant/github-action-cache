@@ -1,0 +1,57 @@
+name: 'Restore Cache'
+description: 'Restore Cache artifacts like dependencies and build outputs to improve workflow execution time'
+author: 'PIMQ'
+inputs:
+  path:
+    description: 'A list of files, directories, and wildcard patterns to restore'
+    required: true
+  key:
+    description: 'An explicit key for restoring the cache'
+    required: true
+  restore-keys:
+    description: 'An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.'
+    required: false
+  enableCrossOsArchive:
+    description: 'An optional boolean when enabled, allows windows runners to restore caches that were saved on other platforms'
+    default: 'false'
+    required: false
+  fail-on-cache-miss:
+    description: 'Fail the workflow if cache entry is not found'
+    default: 'false'
+    required: false
+  lookup-only:
+    description: 'Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache'
+    default: 'false'
+    required: false
+  aws-s3-bucket:
+    description: 'An AWS S3 bucket to save cache'
+    required: true
+  aws-access-key-id:
+    description: 'An AWS access key id to access the bucket'
+    required: true
+  aws-secret-access-key:
+    description: 'An AWS secret access key to access the bucket'
+    required: true
+  aws-region:
+    description: 'An AWS region where the bucket is located'
+    required: false
+  aws-endpoint:
+    description: 'An endpoint of AWS S3 (for compatible software)'
+    required: false
+  aws-s3-force-path-style:
+    description: 'Whether to force path style URLs for S3 objects.'
+    required: false
+    default: false
+outputs:
+  cache-hit:
+    description: 'A boolean value to indicate an exact match was found for the primary key'
+  cache-primary-key:
+    description: 'A resolved cache key for which cache match was attempted'
+  cache-matched-key:
+    description: 'Key of the cache that was restored, it could either be the primary key on cache-hit or a partial/complete match of one of the restore keys'
+runs:
+  using: 'node16'
+  main: '../dist/restore-only/index.js'
+branding:
+  icon: 'archive'
+  color: 'gray-dark'
