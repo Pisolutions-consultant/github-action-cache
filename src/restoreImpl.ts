@@ -42,12 +42,19 @@ export async function restoreImpl(
         const failOnCacheMiss = utils.getInputAsBool(Inputs.FailOnCacheMiss);
         const lookupOnly = utils.getInputAsBool(Inputs.LookupOnly);
 
+        const s3BucketName = core.getInput(Inputs.AWSS3Bucket);
+        const s3config = utils.getInputS3ClientConfig();
+
         const cacheKey = await cache.restoreCache(
             cachePaths,
             primaryKey,
             restoreKeys,
-            { lookupOnly: lookupOnly },
-            enableCrossOsArchive
+            // TODO: update action-toolkit/cache
+            // { lookupOnly: lookupOnly },
+            // enableCrossOsArchive
+            undefined,
+            s3config,
+            s3BucketName
         );
 
         if (!cacheKey) {
