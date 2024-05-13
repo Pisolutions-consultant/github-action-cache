@@ -1,6 +1,6 @@
 # Pisolutions-consultant/github-action-cache
 
-`Pisolutions-consultant/github-action-cache` is a forked Action from [@actions/cache v3](https://github.com/actions/cache).
+`Pisolutions-consultant/github-action-cache` is a forked Action from [@actions/cache v4](https://github.com/actions/cache).
 
 This Action provides Amazon Web Services S3 backend (and compatible software) for @actions/cache.
 
