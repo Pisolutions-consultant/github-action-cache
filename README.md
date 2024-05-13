@@ -1,3 +1,33 @@
+# Pisolutions-consultant/github-action-cache
+
+`Pisolutions-consultant/github-action-cache` is a forked Action from [@actions/cache v4](https://github.com/actions/cache).
+
+This Action provides Amazon Web Services S3 backend (and compatible software) for @actions/cache.
+
+Inspired by [whywaita/actions-cache-s3](https://github.com/whywaita/actions-cache-s3)
+
+## Usage
+
+```yaml
+- name: Cache multiple paths
+  uses: Pisolutions-consultant/github-action-cache@main
+  with:
+    path: |
+      ~/cache
+      !~/cache/exclude
+    key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+    restore-keys: |
+      ${{ runner.os }}-go-
+    aws-s3-bucket: ${{ secrets.AWS_S3_BUCKET_NAME }}
+    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    aws-region: us-east-1                      # Optional
+    aws-endpoint: https://example.com          # Optional
+    aws-s3-force-path-style: true              # Optional
+```
+
+Please see [actions.yml](action.yml) about input parameters.
+
 # Cache action
 
 This action allows caching dependencies and build outputs to improve workflow execution time.
